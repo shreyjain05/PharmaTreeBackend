@@ -78,7 +78,7 @@ public class OrderService {
         order.setOrderID(String.valueOf(Math.abs(new Random().nextInt(1000000))));
         order.setInvoiceNumber("INV:"+order.getOrderID());
 
-        updateInventory(order.getOrderItems());
+        //updateInventory(order.getOrderItems());
 
         // Ensure the relationships are properly set
         if (order.getOrderItems() != null) {
