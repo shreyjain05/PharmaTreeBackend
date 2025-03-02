@@ -1,15 +1,26 @@
 package com.org.farm.hub.FarmHubApplication.rest.controllers;
 
 import com.org.farm.hub.FarmHubApplication.rest.DTO.OrdersDTO;
+import com.org.farm.hub.FarmHubApplication.rest.entity.Customer;
 import com.org.farm.hub.FarmHubApplication.rest.entity.Orders;
 import com.org.farm.hub.FarmHubApplication.rest.model.HubResponseEntity;
 import com.org.farm.hub.FarmHubApplication.rest.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.Base64;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
