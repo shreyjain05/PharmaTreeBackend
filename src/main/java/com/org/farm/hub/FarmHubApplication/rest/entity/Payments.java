@@ -19,6 +19,7 @@ public class Payments {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String paymentID;
     private String orderID;
     private String invoiceNumber;
     private String amount;

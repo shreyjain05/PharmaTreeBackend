@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class PaymentsService {
@@ -28,6 +29,7 @@ public class PaymentsService {
 
     @Transactional
     public Payments createPayment(Payments payment){
+        payment.setPaymentID(String.valueOf(Math.abs(new Random().nextInt(1000000))));
         //TODO : Update the order table for this payment
         orderService.updateOrderWithPayment(payment);
         return paymentsRepository.save(payment);
