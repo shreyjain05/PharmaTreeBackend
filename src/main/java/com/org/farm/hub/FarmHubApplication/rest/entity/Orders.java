@@ -30,7 +30,7 @@ public class Orders {
     private String paidAmount;
     private String pendingAmount;
     private Date lastPaymentDate;
-    private String status=String.valueOf(Status.ORDERED);
+    private String status;
     private String onBehalf;
     private Boolean isSynced=Boolean.FALSE;
     private String deliveryAddress;

@@ -5,6 +5,7 @@ import com.org.farm.hub.FarmHubApplication.rest.DTO.CustomerAddressDTO;
 import com.org.farm.hub.FarmHubApplication.rest.DTO.CustomerDTO;
 import com.org.farm.hub.FarmHubApplication.rest.DTO.OrderItemsDTO;
 import com.org.farm.hub.FarmHubApplication.rest.DTO.OrdersDTO;
+import com.org.farm.hub.FarmHubApplication.rest.constants.Status;
 import com.org.farm.hub.FarmHubApplication.rest.entity.OrderItems;
 import com.org.farm.hub.FarmHubApplication.rest.entity.Orders;
 import com.org.farm.hub.FarmHubApplication.rest.entity.Payments;
@@ -77,6 +78,8 @@ public class OrderService {
         //order.setOrderID(String.valueOf(random.nextInt()));
         order.setOrderID(String.valueOf(Math.abs(new Random().nextInt(1000000))));
         order.setInvoiceNumber("INV:"+order.getOrderID());
+        order.setStatus("ORDERED");
+        
         if (order.getCustomerID() == null || order.getCustomerID().trim().isEmpty()) {
             throw new RuntimeException("Customer ID is missing for the order");
         }
