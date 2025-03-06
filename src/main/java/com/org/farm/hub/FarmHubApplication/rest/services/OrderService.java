@@ -24,6 +24,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,7 +80,7 @@ public class OrderService {
         order.setOrderID(String.valueOf(Math.abs(new Random().nextInt(1000000))));
         order.setInvoiceNumber("INV:"+order.getOrderID());
         order.setStatus("ORDERED");
-        
+
         if (order.getCustomerID() == null || order.getCustomerID().trim().isEmpty()) {
             throw new RuntimeException("Customer ID is missing for the order");
         }
@@ -146,6 +147,7 @@ public class OrderService {
 
         Orders existingOrder = existingOrderOpt.get();
         existingOrder.setStatus(order.getStatus());
+        existingOrder.setModifiedAt(LocalDateTime.now());
 
         Orders updatedOrder = ordersRepository.save(existingOrder);
         response.setMessage("Order updated Successfully");
