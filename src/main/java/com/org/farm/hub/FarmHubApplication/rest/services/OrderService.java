@@ -133,10 +133,28 @@ public class OrderService {
     @Transactional
     public HubResponseEntity updateOrders(Orders order){
         HubResponseEntity response = new HubResponseEntity();
-        Orders createdOrder = ordersRepository.save(order);
+
+        Optional<Orders> existingOrderOpt = ordersRepository.findByOrderID(order.getOrderID());
+        if (!existingOrderOpt.isPresent()) {
+            response.setMessage("Order not found");
+            response.setStatus("FAILURE");
+            return response;
+        }
+
+        Orders existingOrder = existingOrderOpt.get();
+        existingOrder.setStatus(order.getStatus());
+
+        if (order.getOrderItems() != null) {
+            for (OrderItems item : order.getOrderItems()) {
+                item.setOrder(existingOrder);  // Maintain relationship
+            }
+            existingOrder.setOrderItems(order.getOrderItems());
+        }
+
+        Orders updatedOrder = ordersRepository.save(existingOrder);
         response.setMessage("Order updated Successfully");
         response.setStatus("SUCCESS");
-        response.setOrder(modelMapper.map(createdOrder, OrdersDTO.class));
+        response.setOrder(modelMapper.map(updatedOrder, OrdersDTO.class));
         return response;
     }
 
