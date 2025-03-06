@@ -16,6 +16,7 @@ public class PaymentUpdates {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String paymentID;
     private String fileName;
     private String fileId;
     private String rowCount;
