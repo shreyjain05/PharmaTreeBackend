@@ -144,15 +144,6 @@ public class OrderService {
         Orders existingOrder = existingOrderOpt.get();
         existingOrder.setStatus(order.getStatus());
 
-        if (order.getOrderItems() != null) {
-            existingOrder.getOrderItems().clear();
-            for (OrderItems item : order.getOrderItems()) {
-                item.setOrder(existingOrder);  // Maintain relationship
-                existingOrder.getOrderItems().add(item);
-            }
-            
-        }
-
         Orders updatedOrder = ordersRepository.save(existingOrder);
         response.setMessage("Order updated Successfully");
         response.setStatus("SUCCESS");
