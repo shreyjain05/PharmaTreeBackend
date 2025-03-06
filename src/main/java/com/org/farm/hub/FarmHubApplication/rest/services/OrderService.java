@@ -77,7 +77,7 @@ public class OrderService {
         //order.setOrderID(String.valueOf(random.nextInt()));
         order.setOrderID(String.valueOf(Math.abs(new Random().nextInt(1000000))));
         order.setInvoiceNumber("INV:"+order.getOrderID());
-
+        order.setCreatedBy(getCustomerDetails(order).map(CustomerDTO::getCompleteName).orElseThrow(() -> new RuntimeException("Customer Name Not Found")));
         //updateInventory(order.getOrderItems());
 
         // Ensure the relationships are properly set

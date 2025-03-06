@@ -35,7 +35,7 @@ public class Orders {
     private Boolean isSynced=Boolean.FALSE;
     private String deliveryAddress;
     private String paymentUpdateId;
-    private String createdBy ="ADMIN";
+    private String createdBy;
     private LocalDateTime createdAt= LocalDateTime.now();
     private LocalDateTime modifiedAt=LocalDateTime.now();
 
