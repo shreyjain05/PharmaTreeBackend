@@ -58,7 +58,6 @@ public class PaymentHistoryService {
     public HubResponseEntity createPaymentHistory(PaymentUpdates payment){
         HubResponseEntity response = new HubResponseEntity();
         Random random = new Random();
-        payment.setPaymentID(String.valueOf(Math.abs(new Random().nextInt(1000000))));
         //Update payment and order table with received information
         String fileID= "PAY:"+ random.nextInt();
         updatePayments(payment.getPaymentsItems(), fileID).forEach(
@@ -82,6 +81,7 @@ public class PaymentHistoryService {
                 item -> {
                     Payments pay = new Payments();
                     modelMapper.map(item, pay);
+                    pay.setPaymentID(String.valueOf(Math.abs(new Random().nextInt(1000000))));
                     pay.setPaymentUpdateId(fileID);
                     payments.add(pay);
                 }
