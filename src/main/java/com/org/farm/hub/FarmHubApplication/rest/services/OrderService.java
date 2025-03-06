@@ -138,7 +138,7 @@ public class OrderService {
     public HubResponseEntity updateOrders(Orders order){
         HubResponseEntity response = new HubResponseEntity();
 
-        Optional<Orders> existingOrderOpt = ordersRepository.findByOrderID(order.getOrderID());
+        Optional<Orders> existingOrderOpt = ordersRepository.findById(order.getId());
         if (!existingOrderOpt.isPresent()) {
             response.setMessage("Order not found");
             response.setStatus("FAILURE");
