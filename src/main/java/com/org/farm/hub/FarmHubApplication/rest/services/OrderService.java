@@ -77,7 +77,17 @@ public class OrderService {
         //order.setOrderID(String.valueOf(random.nextInt()));
         order.setOrderID(String.valueOf(Math.abs(new Random().nextInt(1000000))));
         order.setInvoiceNumber("INV:"+order.getOrderID());
-        order.setCreatedBy(getCustomerDetails(order).map(CustomerDTO::getCompleteName).orElseThrow(() -> new RuntimeException("Customer Name Not Found")));
+        if (order.getCustomerID() == null || order.getCustomerID().trim().isEmpty()) {
+            throw new RuntimeException("Customer ID is missing for the order");
+        }
+        
+        Optional<CustomerDTO> customerDetails = getCustomerDetails(order);
+        if (customerDetails.isPresent()) {
+            order.setCreatedBy(customerDetails.get().getCompleteName());
+        } else {
+            logger.error("Customer details not found for Order ID: {}", order.getOrderID());
+            throw new RuntimeException("Customer Name Not Found");
+        }
         //updateInventory(order.getOrderItems());
 
         // Ensure the relationships are properly set
