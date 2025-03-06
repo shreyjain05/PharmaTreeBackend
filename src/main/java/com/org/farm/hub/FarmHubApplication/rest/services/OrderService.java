@@ -136,6 +136,7 @@ public class OrderService {
 
     @Transactional
     public HubResponseEntity updateOrders(Orders order){
+        logger.info("Fetching order with ID: {}" + order.getId());
         HubResponseEntity response = new HubResponseEntity();
 
         Optional<Orders> existingOrderOpt = ordersRepository.findById(order.getId());
@@ -146,10 +147,13 @@ public class OrderService {
         }
 
         Orders existingOrder = existingOrderOpt.get();
+        logger.info("Existing Order Status before update: {}", existingOrder.getStatus());
         existingOrder.setStatus(order.getStatus());
+        logger.info("Existing Order Status after update: {}", existingOrder.getStatus());
         existingOrder.setModifiedAt(LocalDateTime.now());
 
         Orders updatedOrder = ordersRepository.save(existingOrder);
+        logger.info("Saved Order ID: {}, Status in DB: {}", updatedOrder.getId(), updatedOrder.getStatus());
         response.setMessage("Order updated Successfully");
         response.setStatus("SUCCESS");
         response.setOrder(modelMapper.map(updatedOrder, OrdersDTO.class));
