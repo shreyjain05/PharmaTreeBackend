@@ -117,6 +117,7 @@ public class OrderService {
     public void updateOrderWithPayment(Payments payment) {
         // TODO : Update order based on payment
         Optional<Orders> order = ordersRepository.findByOrderID(payment.getOrderID());
+
         if(order.isPresent()) {
             int payedAmount = Integer.parseInt(order.get().getPaidAmount());
             payedAmount= payedAmount + Integer.parseInt(payment.getAmount());
@@ -125,6 +126,7 @@ public class OrderService {
             order.get().setPaidAmount(String.valueOf(payedAmount));
             order.get().setPendingAmount(String.valueOf(balance));
             order.get().setLastPaymentDate(new Date());
+            order.get().setStatus("INVOICED");
             ordersRepository.save(order.get());
         }
     }
