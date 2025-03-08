@@ -148,7 +148,7 @@ public class OrderService {
 
         Orders existingOrder = existingOrderOpt.get();
         logger.info("Existing Order Status before update: {}", existingOrder.getStatus());
-        existingOrder.setStatus(order.getStatus());
+        existingOrder.setStatus("INVOICED");
         logger.info("Existing Order Status after update: {}", existingOrder.getStatus());
         existingOrder.setModifiedAt(LocalDateTime.now());
 
