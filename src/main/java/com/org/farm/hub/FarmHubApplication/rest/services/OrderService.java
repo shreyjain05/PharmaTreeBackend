@@ -5,7 +5,6 @@ import com.org.farm.hub.FarmHubApplication.rest.DTO.CustomerAddressDTO;
 import com.org.farm.hub.FarmHubApplication.rest.DTO.CustomerDTO;
 import com.org.farm.hub.FarmHubApplication.rest.DTO.OrderItemsDTO;
 import com.org.farm.hub.FarmHubApplication.rest.DTO.OrdersDTO;
-import com.org.farm.hub.FarmHubApplication.rest.constants.Status;
 import com.org.farm.hub.FarmHubApplication.rest.entity.OrderItems;
 import com.org.farm.hub.FarmHubApplication.rest.entity.Orders;
 import com.org.farm.hub.FarmHubApplication.rest.entity.Payments;
@@ -24,7 +23,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,8 +77,6 @@ public class OrderService {
         //order.setOrderID(String.valueOf(random.nextInt()));
         order.setOrderID(String.valueOf(Math.abs(new Random().nextInt(1000000))));
         order.setInvoiceNumber("INV:"+order.getOrderID());
-        order.setStatus("ORDERED");
-
         if (order.getCustomerID() == null || order.getCustomerID().trim().isEmpty()) {
             throw new RuntimeException("Customer ID is missing for the order");
         }
@@ -117,7 +113,6 @@ public class OrderService {
     public void updateOrderWithPayment(Payments payment) {
         // TODO : Update order based on payment
         Optional<Orders> order = ordersRepository.findByOrderID(payment.getOrderID());
-
         if(order.isPresent()) {
             int payedAmount = Integer.parseInt(order.get().getPaidAmount());
             payedAmount= payedAmount + Integer.parseInt(payment.getAmount());
@@ -126,7 +121,6 @@ public class OrderService {
             order.get().setPaidAmount(String.valueOf(payedAmount));
             order.get().setPendingAmount(String.valueOf(balance));
             order.get().setLastPaymentDate(new Date());
-            order.get().setStatus("INVOICED");
             ordersRepository.save(order.get());
         }
     }
@@ -138,27 +132,12 @@ public class OrderService {
 
     @Transactional
     public HubResponseEntity updateOrders(Orders order){
-        logger.info("Fetching order with ID: {}" + order.getId());
         HubResponseEntity response = new HubResponseEntity();
-
-        Optional<Orders> existingOrderOpt = ordersRepository.findById(order.getId());
-        if (!existingOrderOpt.isPresent()) {
-            response.setMessage("Order not found");
-            response.setStatus("FAILURE");
-            return response;
-        }
-
-        Orders existingOrder = existingOrderOpt.get();
-        logger.info("Existing Order Status before update: {}", existingOrder.getStatus());
-        existingOrder.setStatus("INVOICED");
-        logger.info("Existing Order Status after update: {}", existingOrder.getStatus());
-        existingOrder.setModifiedAt(LocalDateTime.now());
-
-        Orders updatedOrder = ordersRepository.save(existingOrder);
-        logger.info("Saved Order ID: {}, Status in DB: {}", updatedOrder.getId(), updatedOrder.getStatus());
+        order.setStatus("INVOICED");
+        Orders createdOrder = ordersRepository.save(order);
         response.setMessage("Order updated Successfully");
         response.setStatus("SUCCESS");
-        response.setOrder(modelMapper.map(updatedOrder, OrdersDTO.class));
+        response.setOrder(modelMapper.map(createdOrder, OrdersDTO.class));
         return response;
     }
 
