@@ -82,7 +82,7 @@ public class CustomerController {
                 throw new RuntimeException(e);
             }
         });
-        response.setMessage("Customer Updated Successfully!!");
+        response.setMessage("Customer Successfully!!");
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
     private void callERPCustomerAPI(Customer customer){
