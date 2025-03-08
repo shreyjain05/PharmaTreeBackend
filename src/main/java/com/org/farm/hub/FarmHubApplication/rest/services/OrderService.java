@@ -23,6 +23,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -132,12 +133,26 @@ public class OrderService {
 
     @Transactional
     public HubResponseEntity updateOrders(Orders order){
+
         HubResponseEntity response = new HubResponseEntity();
-        order.setStatus("INVOICED");
-        Orders createdOrder = ordersRepository.save(order);
+         Optional<Orders> existingOrderOpt = ordersRepository.findById(order.getId());
+        if (!existingOrderOpt.isPresent()) {
+            response.setMessage("Order not found");
+            response.setStatus("FAILURE");
+            return response;
+        }
+
+        Orders existingOrder = existingOrderOpt.get();
+        logger.info("Existing Order Status before update: {}", existingOrder.getStatus());
+        existingOrder.setStatus(order.getStatus());
+        logger.info("Existing Order Status after update: {}", existingOrder.getStatus());
+        existingOrder.setModifiedAt(LocalDateTime.now());
+
+        Orders updatedOrder = ordersRepository.save(existingOrder);
+        logger.info("Saved Order ID: {}, Status in DB: {}", updatedOrder.getId(), updatedOrder.getStatus());
         response.setMessage("Order updated Successfully");
         response.setStatus("SUCCESS");
-        response.setOrder(modelMapper.map(createdOrder, OrdersDTO.class));
+        response.setOrder(modelMapper.map(updatedOrder, OrdersDTO.class));
         return response;
     }
 
