@@ -8,5 +8,6 @@ import lombok.Setter;
 public class CustomerApproval {
 
     private String customerId;
-    private Boolean approved;
+    private String approved;
+    private String comments;
 }

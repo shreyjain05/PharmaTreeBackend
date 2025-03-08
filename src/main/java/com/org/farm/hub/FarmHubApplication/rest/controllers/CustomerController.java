@@ -60,13 +60,21 @@ public class CustomerController {
         HubResponseEntity response = new HubResponseEntity();
         Optional<Customer> customers = customerService.getCustomersEntityByID(Long.valueOf(approval.getCustomerId()));
         customers.ifPresent(customer -> {
-            if(approval.getApproved()){
+            if(approval.getApproved()=="approved"){
                 customer.setActive(Boolean.TRUE);
                 customer.setStatus(String.valueOf(Status.ACTIVE));
+                customer.setComments(approval.getComments());
                 callERPCustomerAPI(customer);
-            }else{
+            }
+            else if (approval.getApproved()=="review"){
+                customer.setActive(Boolean.FALSE);
+                customer.setStatus(String.valueOf(Status.INACTIVE));
+                customer.setComments(approval.getComments());
+            }
+            else{
                customer.setActive(Boolean.FALSE);
                customer.setStatus(String.valueOf(Status.INACTIVE));
+               customer.setComments(approval.getComments());
             }
             try {
                 customerService.updateCustomer(customer);

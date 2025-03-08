@@ -58,5 +58,6 @@ public class Customer {
     private LocalDateTime createdAt= LocalDateTime.now();
     private LocalDateTime modifiedAt=LocalDateTime.now();
     private String createdBy ="ADMIN";
+    private String comments;
 
 }
