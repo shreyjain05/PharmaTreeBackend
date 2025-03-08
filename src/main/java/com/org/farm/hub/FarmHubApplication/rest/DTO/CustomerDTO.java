@@ -38,6 +38,7 @@ public class CustomerDTO {
     private String metaData;
     private String shopImage;
     private boolean isAdmin;
+    private String comments;
 
     private List<CustomerAddressDTO> addresses;
 
