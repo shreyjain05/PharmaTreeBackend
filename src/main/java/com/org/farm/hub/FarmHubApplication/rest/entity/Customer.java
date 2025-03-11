@@ -10,7 +10,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Entity(name ="customer")
+import org.hibernate.annotations.DynamicInsert;
+
+//@Entity(name ="customer")
+@Entity
+@Table(name = "customer")
+@DynamicInsert
 @Getter
 @Setter
 public class Customer {
