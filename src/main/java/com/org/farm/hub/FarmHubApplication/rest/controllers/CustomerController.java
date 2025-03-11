@@ -119,7 +119,7 @@ public class CustomerController {
         custDetails.put("Mobile_No", customer.getMobNumber());
         custDetails.put("Email_Address", customer.getEmail());
 
-        requestBody.put("Cust_Details", custDetails);
+        requestBody.put("Cust_Sup_Details", custDetails);
 
         ObjectMapper objectMapper = new ObjectMapper();
         try {

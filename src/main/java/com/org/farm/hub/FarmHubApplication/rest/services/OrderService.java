@@ -167,10 +167,10 @@ public class OrderService {
     }
 
     private void callERPOrdersAPI(Orders order){
-        String apiURL = "http://demo.logicerp.com/api/SaveSaleOrder";
+        String apiURL = "https://logicapi.logicerp.in/RohtakDistributor/SaveSaleOrder";
 
-        String username = "LAdmin";
-        String password = "1";
+        String username = "RkdApi";
+        String password = "RkdApi@321";
 
         String auth = username + ":" + password;
         String encodedAuth = Base64.getEncoder().encodeToString(auth.getBytes(StandardCharsets.UTF_8));
@@ -180,7 +180,7 @@ public class OrderService {
         String formattedDate = sdf.format(new Date());
 
         Map<String, Object> requestBody = new HashMap<>();
-        requestBody.put("Branch_Code", "2");
+        requestBody.put("Branch_Code", "0");
         requestBody.put("Order_Prefix", "PT");
         requestBody.put("Order_Date", formattedDate);
         requestBody.put("Party_User_code", order.getCustomerID());
@@ -216,9 +216,9 @@ public class OrderService {
 
         try{
             ResponseEntity<String> response = restTemplate.postForEntity(apiURL, request, String.class);
-            System.out.println("ERP API Response is " + response.getBody());
+            logger.info("ERP API Response is " + response.getBody());
         } catch (Exception e){
-            System.err.println("Error calling ERP API " + e.getMessage());
+            logger.info("Error calling ERP API " + e.getMessage());
         }
 
 
