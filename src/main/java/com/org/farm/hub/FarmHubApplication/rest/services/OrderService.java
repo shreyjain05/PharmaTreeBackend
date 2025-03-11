@@ -181,7 +181,8 @@ public class OrderService {
 
         Map<String, Object> requestBody = new HashMap<>();
         requestBody.put("Branch_Code", "0");
-        requestBody.put("Order_Prefix", "PT");
+        requestBody.put("Order_Prefix", "SO");
+        requestBody.put("RCU_Mem_Prefix", "MM");
         requestBody.put("Order_Date", formattedDate);
         requestBody.put("Party_User_code", order.getCustomerID());
         requestBody.put("Party_Order_No", order.getOrderID());
@@ -191,7 +192,7 @@ public class OrderService {
         List<Map<String,Object>> listItems = new ArrayList<>();
         for(OrderItems item : order.getOrderItems()){
             Map<String, Object> itemData = new HashMap<>();
-            itemData.put("LogicUser_Code", item.getProductID());
+            itemData.put("LogicUser_Code", "TE7283");
             itemData.put("Order_Qty", item.getQuantity());
             itemData.put("Rate", item.getBillAmount());
             listItems.add(itemData);
