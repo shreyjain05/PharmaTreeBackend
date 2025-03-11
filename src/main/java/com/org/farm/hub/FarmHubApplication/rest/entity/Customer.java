@@ -12,16 +12,16 @@ import java.util.List;
 
 import org.hibernate.annotations.DynamicInsert;
 
-//@Entity(name ="customer")
 @Entity
 @Table(name = "customer")
 @DynamicInsert
 @Getter
 @Setter
+@SequenceGenerator(name = "customer_seq", sequenceName = "customer_seq", initialValue = 1297, allocationSize = 1)
 public class Customer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_seq")
     private Long id;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
