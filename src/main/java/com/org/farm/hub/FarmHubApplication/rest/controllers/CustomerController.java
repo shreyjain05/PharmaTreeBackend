@@ -139,9 +139,9 @@ public class CustomerController {
 
         try{
             ResponseEntity<String> response = restTemplate.postForEntity(apiURL, request, String.class);
-            System.out.println("ERP API Response is " + response.getBody());
+            logger.info("ERP API Response is " + response.getBody());
         } catch (Exception e){
-            System.err.println("Error calling ERP API " + e.getMessage());
+            logger.info("Error calling ERP API " + e.getMessage());
         }
 
 
