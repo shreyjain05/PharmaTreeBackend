@@ -24,6 +24,7 @@ public class ProductsDTO {
     private String updatedBy;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
+    private String productCode;
 
     private List<ProductInventoryDTO> productInventoryList;
 }

@@ -30,6 +30,7 @@ public class Products {
     private String updatedBy ="ADMIN";
     private LocalDateTime createdAt= LocalDateTime.now();
     private LocalDateTime modifiedAt=LocalDateTime.now();
+    private String productCode;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductInventory> productInventoryList;
