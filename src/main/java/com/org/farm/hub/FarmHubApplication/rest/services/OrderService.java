@@ -192,7 +192,7 @@ public class OrderService {
         List<Map<String,Object>> listItems = new ArrayList<>();
         for(OrderItems item : order.getOrderItems()){
             Map<String, Object> itemData = new HashMap<>();
-            itemData.put("LogicUser_Code", "TE7283");
+            itemData.put("LogicUser_Code", item.getProductCode());
             itemData.put("Order_Qty", item.getQuantity());
             itemData.put("Rate", item.getBillAmount());
             listItems.add(itemData);

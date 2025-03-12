@@ -12,6 +12,7 @@ public class OrderItemsDTO {
     private Long id;
     private String productName;
     private String productID;
+    private String productCode;
     private String batch;
     private String quantity;
     private String billAmount;

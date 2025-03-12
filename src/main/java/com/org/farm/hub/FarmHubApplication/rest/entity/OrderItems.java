@@ -17,6 +17,7 @@ public class OrderItems {
 
     private String productName;
     private String productID;
+    private String productCode;
     private String quantity;
     private String billAmount;
     private String itemCGST;
