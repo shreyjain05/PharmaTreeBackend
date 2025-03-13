@@ -18,4 +18,5 @@ public class PaymentItemsDTO {
     private String customerID;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
+    private String discount;
 }

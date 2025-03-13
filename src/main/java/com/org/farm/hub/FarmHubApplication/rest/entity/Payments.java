@@ -30,4 +30,5 @@ public class Payments {
     private String createdBy ="ADMIN";
     private LocalDateTime createdAt= LocalDateTime.now();
     private LocalDateTime modifiedAt=LocalDateTime.now();
+    private String discount;
 }
