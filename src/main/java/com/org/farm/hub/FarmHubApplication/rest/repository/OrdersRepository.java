@@ -15,4 +15,6 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
     @Query("SELECT o FROM orders o WHERE o.customerID = :customerId AND o.createdAt >= :startDate")
     List<Orders> findOrdersByCustomerIdAndDate(@Param("customerId") String customerId,
                                                @Param("startDate") LocalDateTime startDate);
+
+    List<Orders> findByStatus(String status);
 }

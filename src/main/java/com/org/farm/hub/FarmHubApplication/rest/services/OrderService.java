@@ -105,11 +105,6 @@ public class OrderService {
         return response;
     }
 
-    private void updateInventory(List<OrderItems> orderItems) {
-        // TODO : Update inventory based on the order items
-        orderItems.forEach(item -> inventoryService.updateProductInventory(modelMapper.map(item, OrderItemsDTO.class)));
-    }
-
     @Transactional
     public void updateOrderWithPayment(Payments payment) {
         // TODO : Update order based on payment
