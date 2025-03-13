@@ -78,6 +78,7 @@ public class OrderService {
         //order.setOrderID(String.valueOf(random.nextInt()));
         order.setOrderID(String.valueOf(Math.abs(new Random().nextInt(1000000))));
         order.setInvoiceNumber("INV:"+order.getOrderID());
+        order.setStatus("ORDERED");
         if (order.getCustomerID() == null || order.getCustomerID().trim().isEmpty()) {
             throw new RuntimeException("Customer ID is missing for the order");
         }
