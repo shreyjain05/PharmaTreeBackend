@@ -61,7 +61,7 @@ public class InvoiceService {
             String formattedDate = sdf.format(new Date());
 
             Map<String, Object> requestBody = new HashMap<>();
-            requestBody.put("DateFrom", formattedDate);
+            requestBody.put("DateFrom", "12/03/2025");
             requestBody.put("DateTo", formattedDate);
 
              ObjectMapper objectMapper = new ObjectMapper();
