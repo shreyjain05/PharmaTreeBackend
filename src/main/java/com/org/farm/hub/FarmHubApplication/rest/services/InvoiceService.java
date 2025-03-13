@@ -61,7 +61,7 @@ public class InvoiceService {
             String formattedDate = sdf.format(new Date());
 
             Map<String, Object> requestBody = new HashMap<>();
-            requestBody.put("DateFrom", "12/03/2025");
+            requestBody.put("DateFrom", formattedDate);
             requestBody.put("DateTo", formattedDate);
 
              ObjectMapper objectMapper = new ObjectMapper();
@@ -89,9 +89,11 @@ public class InvoiceService {
 
             if(getDataNode != null && getDataNode.isArray()){
                 List<String> orderNumbers = getDataNode.findValuesAsText("SO_Party_Order_No");
+                logger.info("Order numbers from ERP response: {}", orderNumbers);
                 List<Orders> orderedOrders = orderRepository.findByStatus("ORDERED");
 
                 for(Orders order : orderedOrders){
+                    logger.info("Checking order ID: {}", order.getOrderID());
                     if(orderNumbers.contains(order.getOrderID())){
                         for(JsonNode invoicNode : getDataNode){
                             if(invoicNode.get("SO_Party_Order_No").asText().equals(order.getOrderID())){
