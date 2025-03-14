@@ -42,7 +42,7 @@ public class PaymentController {
     public ResponseEntity<Payments> createPayments(@RequestBody Payments Payments){
         Payments savedPayment = paymentsService.createPayment(Payments);
         //Long paymentId = savedPayment.getId();
-        callERPPaymentsAPI(Payments);
+        //callERPPaymentsAPI(Payments);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedPayment);
 
     }

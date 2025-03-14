@@ -54,7 +54,7 @@ public class Customer {
     private Date foodLicenseExpirationDate;
     private String foodLicenseNumber;
     private String shopImage;
-    private boolean isAdmin=Boolean.FALSE;
+    private String isAdmin="CUST";
     @Lob
     @Column(columnDefinition = "json")
     private String metaData;

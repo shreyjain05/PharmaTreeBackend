@@ -37,7 +37,7 @@ public class CustomerDTO {
     private String createdBy;
     private String metaData;
     private String shopImage;
-    private boolean isAdmin;
+    private String isAdmin;
     private String comments;
 
     private List<CustomerAddressDTO> addresses;

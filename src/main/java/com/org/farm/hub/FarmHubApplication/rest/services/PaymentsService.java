@@ -92,6 +92,7 @@ public class PaymentsService {
         List<Map<String,Object>> listAccounts = new ArrayList<>();
         Map<String, Object> account = new HashMap<>();
         account.put("Amount", payments.getAmount());
+        account.put("AccountCode", "2");
         listAccounts.add(account);
         //account.put("AccountCode", payments.getCustomerID());
 
