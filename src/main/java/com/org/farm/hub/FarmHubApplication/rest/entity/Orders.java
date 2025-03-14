@@ -38,6 +38,7 @@ public class Orders {
     private String createdBy;
     private LocalDateTime createdAt= LocalDateTime.now();
     private LocalDateTime modifiedAt=LocalDateTime.now();
+    private String invoicePDFLink;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItems> orderItems;

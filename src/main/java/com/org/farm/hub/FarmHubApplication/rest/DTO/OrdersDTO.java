@@ -32,6 +32,7 @@ public class OrdersDTO {
     private String createdBy;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
+    private String invoicePDFLink;
 
     private List<OrderItemsDTO> orderItems;
 }

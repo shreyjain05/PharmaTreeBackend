@@ -98,8 +98,10 @@ public class InvoiceService {
                         for(JsonNode invoicNode : getDataNode){
                             if(invoicNode.get("SO_Party_Order_No").asText().equals(order.getOrderID())){
                                 String billNo = invoicNode.get("Bill_No").asText();
+                                String invoicePDFLink = invoicNode.get("InvoicePDFLink").asText();
                                 order.setStatus("INVOICED");
                                 order.setInvoiceNumber(billNo);
+                                order.setInvoicePDFLink(invoicePDFLink);
                                 orderRepository.save(order);
 
                                 updateInventory(order.getOrderItems());
