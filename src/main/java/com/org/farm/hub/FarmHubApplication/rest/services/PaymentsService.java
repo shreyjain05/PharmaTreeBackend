@@ -83,8 +83,8 @@ public class PaymentsService {
         String formattedDate = sdf.format(new Date());
 
         Map<String, Object> requestBody = new HashMap<>();
-        requestBody.put("Branch_Code", "0");
-        requestBody.put("ActUserCode", payments.getCustomerID());
+        requestBody.put("BranchCode", "0");
+        requestBody.put("ActUserCode", "2");
         requestBody.put("Remarks_1", payments.getOrderID());
         requestBody.put("Remarks_2", payments.getInvoiceNumber());
         requestBody.put("VoucherDate", formattedDate);
@@ -92,7 +92,7 @@ public class PaymentsService {
         List<Map<String,Object>> listAccounts = new ArrayList<>();
         Map<String, Object> account = new HashMap<>();
         account.put("Amount", payments.getAmount());
-        account.put("AccountCode", "2");
+        account.put("AccountCode", payments.getCustomerID());
         listAccounts.add(account);
         //account.put("AccountCode", payments.getCustomerID());
 
