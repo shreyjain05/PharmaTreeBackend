@@ -81,6 +81,11 @@ public class InventoryService {
         });
     }
 
+    public String getProductCodeById(Long productId) {
+        Optional<Products> product = productRepository.findById(productId);
+        return product.map(Products::getProductCode).orElse(null);
+    }
+
     private List<Products> updateInventory(List<InventoryItemsDTO> inventoryProducts, List<Products> productsList, String fileID) {
 
         // Update product based on the matching id from inventory

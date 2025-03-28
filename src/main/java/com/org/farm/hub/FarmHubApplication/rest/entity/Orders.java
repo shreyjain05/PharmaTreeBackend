@@ -39,6 +39,7 @@ public class Orders {
     private LocalDateTime createdAt= LocalDateTime.now();
     private LocalDateTime modifiedAt=LocalDateTime.now();
     private String invoicePDFLink;
+    private String isErpApiOrderSynced;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItems> orderItems;

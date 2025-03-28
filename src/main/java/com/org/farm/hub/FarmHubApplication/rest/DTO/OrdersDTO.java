@@ -33,6 +33,7 @@ public class OrdersDTO {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
     private String invoicePDFLink;
+    private String isErpApiOrderSynced;
 
     private List<OrderItemsDTO> orderItems;
 }

@@ -81,7 +81,7 @@ public class CustomerController {
             }
             else{
                customer.setActive(Boolean.FALSE);
-               customer.setStatus(String.valueOf(Status.INACTIVE));
+               customer.setStatus(String.valueOf(Status.REJECTED));
                customer.setComments(approval.getComments());
             }
             try {

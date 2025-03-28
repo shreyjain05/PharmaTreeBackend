@@ -1,5 +1,6 @@
 package com.org.farm.hub.FarmHubApplication.rest.services;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.org.farm.hub.FarmHubApplication.rest.DTO.CustomerAddressDTO;
 import com.org.farm.hub.FarmHubApplication.rest.DTO.CustomerDTO;
@@ -188,7 +189,16 @@ public class OrderService {
         List<Map<String,Object>> listItems = new ArrayList<>();
         for(OrderItems item : order.getOrderItems()){
             Map<String, Object> itemData = new HashMap<>();
-            itemData.put("LogicUser_Code", item.getProductCode());
+
+           // Convert ProductID to Long if it's a String
+            Long productId = Long.parseLong(item.getProductID());
+
+            // Fetch product code from the database using product ID
+            String productCode = inventoryService.getProductCodeById(productId);
+            if (productCode == null) {
+                throw new RuntimeException("Product code not found for Product ID: " + item.getProductID());
+            }
+            itemData.put("LogicUser_Code", productCode);
             itemData.put("Order_Qty", item.getQuantity());
             itemData.put("Rate", item.getBillAmount());
             listItems.add(itemData);
@@ -214,8 +224,16 @@ public class OrderService {
         try{
             ResponseEntity<String> response = restTemplate.postForEntity(apiURL, request, String.class);
             logger.info("ERP API Response is " + response.getBody());
+            JsonNode responseBody = objectMapper.readTree(response.getBody());
+            String status = responseBody.get("Status").asText(); // Fetch the "Status" field
+            logger.info("ERP API Status: {}", status);
+            order.setIsErpApiOrderSynced(formattedDate);
+            ordersRepository.save(order);
+
         } catch (Exception e){
             logger.info("Error calling ERP API " + e.getMessage());
+            order.setIsErpApiOrderSynced("false");
+            ordersRepository.save(order);
         }
 
 
